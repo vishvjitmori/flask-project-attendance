@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        {% block title %} Employee Login {% endblock %}
+    </title>
+    {% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/employeelogin.css')}}" />
+</head>
+
+<body>
+
+    <div class="login-page">
+        <div class="card">
+
+            <div class="login-header">
+                <div class="icon-circle">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3607/3607444.png" width="30">
+                </div>
+                <h1>Employee Portal</h1>
+                <p class="subtitle">Sign in to your account</p>
+            </div>
+            {% with message = get_flashed_messages(with_categories=True) %}
+            {% if message %}
+            {% for category, msg in message %}
+            <div class="flash-box">
+            <p class=" flash {{ category }}">{{msg}}</p>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <form action="/employee_login" method="POST">
+                <div class="form-group">
+                    <label>Employee ID</label>
+                    <input type="text" name="employee_ID" placeholder="Enter your ID" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Enter your password" required>
+                </div>
+
+                <button type="submit" class="btn primary">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>
+{% endblock %}

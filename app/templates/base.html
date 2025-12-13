@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %} Header {% endblock %}
+    </title>
+
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.4.0/fonts/remixicon.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <!-- ================= SIDEBAR ================= -->
+        <div class="sidebar">
+
+            <h2 class="sidebar-title">ATTENDANCE<br>SYSTEM</h2>
+
+            <ul class="menu">
+
+                <li>
+                    <a href="{{ url_for('dashboard.dashboard') }}">
+                        <i class="ri-apps-2-line"></i> Dashboard
+                    </a>
+                </li>
+
+                <!-- Stores Dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-btn">
+                        <i class="ri-store-2-line"></i> Stores
+                        <i class="ri-arrow-down-s-line arrow"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('storelist.storelist') }}">Stores List</a></li>
+                        <li><a href="{{ url_for('addstore.addstore') }}">Add Stores</a></li>
+                    </ul>
+                </li>
+
+                <!-- Employee Dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-btn">
+                        <i class="ri-group-line"></i> Employee Profiles
+                        <i class="ri-arrow-down-s-line arrow"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('employeelist.employeelist') }}">Employee List</a></li>
+                        <li><a href="{{ url_for('addemployee.addemployee') }}">Add Employee</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('attendancelogs.attendance_logs')}}">
+                        <i class="ri-file-list-line"></i> Attendance Logs
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('payroll.payroll') }}">
+                        <i class="ri-bar-chart-2-line"></i> Payroll
+                    </a>
+                </li>
+
+                <li>
+                    <a href="settings.html">
+                        <i class="ri-settings-3-line"></i> Settings
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('employeelogin.employee_login') }}">
+                        <i class="ri-user-line"></i> Employee Login
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('auth.logout')}}">
+                        <i class="ri-logout-box-line"></i> Logout
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+
+        <!-- ================= RIGHT AREA (HEADER + CONTENT) ================= -->
+        <div class="right-area">
+
+            <!-- HEADER -->
+            <header class="topbar">
+                <div class="left-icons">
+                    <i class="ri-menu-line"></i>
+                    <i class="ri-search-line"></i>
+                </div>
+
+                <div class="right-icons">
+                    <div class="bell-container">
+                        <a href="{{ url_for('leaves.leave_requests')}}">
+                        <i class="ri-notification-3-line bell"> </i>
+                        <span class="notif">{{ pending_leaves or 0 }}</span>
+                        </a>
+                    </div>
+                    {% if current_user %}
+                     {% set email_first = current_user.email[0].upper() %}
+                    <div class="profile">{{ email_first }}</div>
+                    {% endif %}
+                </div>
+            </header>
+
+            <!-- MAIN CONTENT -->
+            {% block content %}  {% endblock %}
+
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/sidebar.js')}}"></script>
+</body>
+
+</html>

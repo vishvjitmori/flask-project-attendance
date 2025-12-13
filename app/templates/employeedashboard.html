@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %} Employee Dashboard {% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/employeedashboard.css')}}" />
+
+<div class="dashboard-container">
+    <header class="dashboard-header">
+        <h2>Hello, {{ employee_name }} 👋</h2>
+        <p>Welcome back!</p>
+    </header>
+
+    <section class="cards">
+        <div class="card">
+            <h3>Total Attendance</h3>
+            <p>{{ attendance_days }} Days</p>
+        </div>
+        <div class="card">
+            <h3>Total Leaves</h3>
+            <p>{{ total_leaves }} Days</p>
+        </div>
+        <div class="card full">
+            <h3>Total Hours This Month</h3>
+            <p>{{ total_hours_month }} Hours</p>
+        </div>
+    </section>
+
+    <section class="check-box">
+        <h3>Today's Attendance</h3>
+        <form action="{{ url_for('emp_dashboard.check_in') }}" method="POST">
+            <button type="submit" class="check-in" id="btn-checkin" {% if disable_check_in %}disabled{% endif %}>Check In</button>
+        </form>
+        <form action="{{ url_for('emp_dashboard.check_out') }}" method="POST">
+            <button type="submit" class="check-out" id="btn-checkout" {% if disable_check_out %}disabled{% endif %}>Check Out</button>
+        </form>
+
+        <h3>Leave Request</h3>
+        <form action="{{ url_for('leaves.request_leave') }}" method="POST" class="leave-form">
+            <div class="manual-entry">
+                <label>Start Date</label>
+                <input type="date" name="start_date" required />
+                <label>End Date</label>
+                <input type="date" name="end_date" required />
+                <label>Reason</label>
+                <textarea class="txt_area" name="reason" placeholder="Reason" required></textarea>
+                <button type="submit" class="submit-manual">Submit Leave</button>
+            </div>
+        </form>
+        {% if last_leave %}
+        <div class="leave-status">
+            <p>Last leave: <strong>{{ last_leave.status|capitalize }}</strong>
+            {% if last_leave.response_message %}- {{ last_leave.response_message }}{% endif %}
+            </p>
+        </div>
+        {% endif %}
+    </section>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const checkInBtn = document.getElementById('btn-checkin');
+    const checkOutBtn = document.getElementById('btn-checkout');
+
+    // Prevent double submissions: disable the clicked button immediately
+    if (checkInBtn) {
+      checkInBtn.closest('form').addEventListener('submit', () => {
+        checkInBtn.disabled = true;
+      });
+    }
+    if (checkOutBtn) {
+      checkOutBtn.closest('form').addEventListener('submit', () => {
+        checkOutBtn.disabled = true;
+      });
+    }
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,156 @@
+body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+}
+
+/* ================= LAYOUT ================= */
+.layout {
+    display: flex;
+    height: 100vh;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    padding: 20px;
+    background: white;
+    border-right: 1px solid #eaeaea;
+}
+
+.sidebar-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #0A3A52;
+    margin-bottom: 40px;
+    line-height: 1.1;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu li {
+    margin-bottom: 10px;
+}
+
+.menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    text-decoration: none;
+    color: #3b4657;
+    font-size: 15px;
+    border-radius: 8px;
+}
+
+.menu a:hover {
+    background: #e9f5ff;
+}
+
+.active {
+    background: #0c4a6e !important;
+    color: white !important;
+}
+
+.dropdown-menu {
+    display: none;
+    margin-left: 40px;
+}
+
+.dropdown-menu li a {
+    padding: 8px 0px;
+    color: #4b5563;
+}
+
+.dropdown-btn {
+    cursor: pointer;
+}
+
+.arrow {
+    margin-left: auto;
+    transition: 0.3s;
+}
+
+.rotate {
+    transform: rotate(180deg);
+}
+
+/* ================= RIGHT AREA ================= */
+.right-area {
+    flex: 1;
+    background: #f5f6f8;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ================= HEADER ================= */
+.topbar {
+    height: 70px;
+    background: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 25px;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.08);
+    border-radius: 6px;
+}
+
+/* LEFT ICONS */
+.left-icons i {
+    font-size: 24px;
+    color: #4a596b;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+/* RIGHT ICONS */
+.right-icons {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+/* Bell Notification */
+.bell-container {
+    position: relative;
+}
+
+.bell {
+    font-size: 24px;
+    color: #4a596b;
+}
+
+.notif {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #f7a51a;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+
+/* Profile Circle */
+.profile {
+    width: 40px;
+    height: 40px;
+    background: #0e5c87;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* ================= CONTENT AREA ================= */
+.content {
+    flex: 1;
+    padding: 20px;
+}

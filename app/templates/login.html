@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Attendance Login</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/login.css')}}">
+</head>
+<body>
+
+<div class="container">
+    <div class="login-box">
+
+        <div class="header">
+            <h1>Shop</h1>
+            <p>Attendance System</p>
+        </div>
+
+        <form action="/login" method="POST">
+            {% with message = get_flashed_messages(with_categories=True) %}
+            {% if message %}
+            {% for category, msg in message %}
+            <div class="flash-box">
+            <p class=" flash {{ category }}">{{msg}}</p>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <input type="email" placeholder="Enter your email" name="email" required>
+            <input type="password" placeholder="Enter your password" name="password" required>
+
+            <button type="submit" class="login-btn">Login</button>
+
+            <div class="links">
+                <a href="{{ url_for('auth.register')}}">Sign Up</a>
+                <a href="/forgot-password" class="right">Forgot Password?</a>
+            </div>
+        </form>
+
+        <div class="footer">
+            © 2025 Shop Attendance System
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

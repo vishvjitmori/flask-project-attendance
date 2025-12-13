@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %} Leave Requests {% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/leave_req.css') }}">
+<div class="container">
+  <div class="breadcrumb">
+    <a href="{{ url_for('dashboard.dashboard') }}">Dashboard</a> / <span>Leave Requests</span>
+  </div>
+
+  <h1>Leave Requests</h1>
+
+  <table class="payroll-table">
+    <thead>
+      <tr>
+        <th>Employee</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Reason</th>
+        <th>Status</th>
+        <th>Response</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for leave in leaves %}
+      <tr>
+        <td>{{ leave.employee.employee_name }}</td>
+        <td>{{ leave.start_date.strftime('%b %d, %Y') }}</td>
+        <td>{{ leave.end_date.strftime('%b %d, %Y') }}</td>
+        <td>{{ leave.reason }}</td>
+        <td>{{ leave.status|capitalize }}</td>
+        <td>{{ leave.response_message or '—' }}</td>
+        <td>
+          <form action="{{ url_for('leaves.update_leave', leave_id=leave.id, action='approve') }}" method="POST" style="display:inline;">
+            <input type="text" name="response_message" placeholder="Message" style="width:120px;">
+            <button class="btn primary" type="submit">Approve</button>
+          </form>
+          <form action="{{ url_for('leaves.update_leave', leave_id=leave.id, action='reject') }}" method="POST" style="display:inline;">
+            <input type="text" name="response_message" placeholder="Message" style="width:120px;">
+            <button class="btn ghost" type="submit">Reject</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="7" style="text-align:center;">No leave requests.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+

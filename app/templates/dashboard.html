@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>
+{% block title %} Dashboard {% endblock %}
+</title>
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css')}}" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="dashboard">
+
+    <div class="top-cards">
+      <div class="card"><p>Total Employees</p><h1>{{ total_employees }}</h1></div>
+      <div class="card"><p>Active Checked-In Now</p><h1>{{ active_checked_in }}</h1></div>
+      <div class="card"><p>Total Hours Today</p><h1>{{ total_hours_today }} hrs</h1></div>
+      <div class="card"><p>Pending Check-Out</p><h1>{{ pending_checkout }}</h1></div>
+    </div>
+
+    <div class="charts-row">
+      <div class="chart-card">
+        <h3>Hours Worked per Store</h3>
+        <canvas id="barChart"
+          data-labels='{{ store_hours_labels|tojson }}'
+          data-values='{{ store_hours_values|tojson }}'></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Last 30 Days Hours Worked</h3>
+        <canvas id="lineChart"
+          data-labels='{{ daily_hours_labels|tojson }}'
+          data-values='{{ daily_hours_values|tojson }}'></canvas>
+      </div>
+    </div>
+
+    <div class="table-card">
+      <h3>Attendance Live Status</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Employee</th><th>Store</th><th>Check-In</th><th>Check-Out</th><th>Hours Today</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for log in live_logs %}
+          <tr>
+            <td>{{ log.employee.employee_name }}</td>
+            <td>{{ log.store.store_name }}</td>
+            <td>{{ log.check_in.strftime('%I:%M %p') if log.check_in else '—' }}</td>
+            <td>{{ log.check_out.strftime('%I:%M %p') if log.check_out else '—' }}</td>
+            <td>
+              {% set end_time = log.check_out if log.check_out else None %}
+              {% if log.check_in %}
+                {% if log.check_out %}
+                  {{ (log.check_out - log.check_in) }}
+                {% else %}
+                  <!-- display placeholder; JS can prettify -->
+                  —
+                {% endif %}
+              {% else %}
+                —
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='js/dashboard.js')}}"></script>
+</body>
+{% endblock %}
+</html>

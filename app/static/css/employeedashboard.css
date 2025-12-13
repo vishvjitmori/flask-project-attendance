@@ -1,0 +1,136 @@
+/* Mobile Dashboard CSS */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(to bottom right, #f0edfe, #fffef6);
+}
+
+.dashboard-container {
+  padding: 16px;
+}
+/* Header */
+.dashboard-header h2 {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+.dashboard-header p {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Cards */
+.cards {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+.card {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 6px;
+}
+.card.full {
+  grid-column: span 2;
+}
+
+.card h3 {
+  font-size: 14px;
+  color: #444;
+}
+.card p {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* Check Section */
+.check-box {
+  background: #fff;
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 6px;
+}
+.check-box h3 {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+.check-in,
+.check-out {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.check-in {
+  background: #4caf50;
+  color: white;
+}
+.check-out {
+  background: #f44336;
+  color: white;
+}
+.check-in:disabled,
+.check-out:disabled {
+  background: #cbd5e1;
+  color: #6b7280;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* Manual Entry */
+.manual-entry {
+  margin-top: 16px;
+}
+.manual-entry input {
+  width: 97.6%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+.submit-manual {
+  width: 100%;
+  padding: 12px;
+  background: #0e5c87;
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #ddd;
+}
+.bottom-nav a {
+  font-size: 14px;
+  color: #777;
+  text-decoration: none;
+}
+.bottom-nav .active {
+  color: #0e5c87;
+  font-weight: 600;
+}
+
+.txt_area {
+  width: 97.6%;
+  height: 100px;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  resize: none;
+}

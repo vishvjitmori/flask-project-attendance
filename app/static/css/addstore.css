@@ -1,0 +1,131 @@
+/* Modal container/card — make relative so absolute children are anchored */
+.modal-card {
+    position: relative;          /* important for absolute .close-btn */
+    width: 90%;
+    max-width: 1200px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 28px 28px 24px;     /* top padding includes space for close btn */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+/* Close button — positioned inside modal, not overlaying inputs */
+.close-btn {
+    position: absolute;
+    top: 14px;       /* vertical position inside modal */
+    right: 14px;      /* set to right:14px if you want it on the right side */
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #333;
+    cursor: pointer;
+    z-index: 20;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+/* When hovering the close btn */
+.close-btn:hover {
+    background: #f6f8fb;
+}
+
+/* Header: keep header inside the flow (no absolute elements interfering) */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+    /* add a little extra left padding so title doesn't sit under close btn on very small screens */
+    padding-left: 6px;
+}
+
+/* Title style */
+.modal-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Grid layout for rows — avoids inputs touching each other */
+.row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 20px;
+    margin-bottom: 20px;
+}
+
+/* Responsiveness: single column on smaller screens */
+@media (max-width: 768px) {
+    .modal-card { padding: 20px; }
+    .row { grid-template-columns: 1fr; gap: 14px; }
+    .close-btn { top: 10px; left: 10px; }
+}
+
+/* Form group + labels */
+.form-group { display:flex; flex-direction:column; }
+.form-group label {
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+/* Inputs — consistent radii and no overlapping */
+input, textarea, select {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 14px;
+    border: 1px solid #d7dee9;
+    border-radius: 8px;
+    background: #fff;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color .18s ease, box-shadow .18s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.10);
+}
+
+/* If you had 2 inputs side-by-side and wanted a "joined" look, you could do specific corner rules.
+   But with grid, each input should have its own rounded corners (default above) so they don't seam. */
+
+/* Section box and spacing */
+.form-section {
+    background: #f7f9fc;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 22px;
+    border: 1px solid #eef2f6;
+}
+
+/* Buttons */
+.modal-footer {
+    display:flex;
+    justify-content:flex-end;
+    gap:12px;
+    margin-top:8px;
+}
+
+.cancel-btn, .submit-btn {
+    font-size:14px;
+    padding:9px 16px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.cancel-btn { background:#fff; border:1px solid #d0d4da; }
+.submit-btn { background:#2563eb; color:#fff; border:0; }
+
+a{
+    text-decoration: none;
+}

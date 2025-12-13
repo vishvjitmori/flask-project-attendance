@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %} Attendance Logs {% endblock %}
+    </title>
+
+    {% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/attendancelogs.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="#dashboard">Dashboard</a> / <span>Attendance Logs</span>
+        </div>
+
+        <h1>Attendance Logs</h1>
+
+        <form class="filters" method="get" action="{{ url_for('attendancelogs.attendance_logs') }}">
+            <div class="input-wrapper">
+                <input type="text" placeholder="Store Name" name="store_name" value="{{ store_name or '' }}">
+            </div>
+            <div class="input-wrapper">
+                <input type="text" placeholder="Employee Name" name="employee_name" value="{{ employee_name or '' }}">
+            </div>
+            <div class="input-wrapper date-input">
+                <input type="date" name="date" value="{{ date or '' }}">
+            </div>
+            <div class="filter-actions">
+                <button type="submit" class="btn primary">Filter</button>
+                {% if store_name or employee_name or date %}
+                <a class="btn ghost" href="{{ url_for('attendancelogs.attendance_logs') }}">Clear</a>
+                {% endif %}
+            </div>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Store Name ⇅</th>
+                    <th>Employee Name ⇅</th>
+                    <th>Check-in ⇅</th>
+                    <th>Check-out</th>
+                    <th>Hours ⇅</th>
+                    <th>Notes ⇅</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for log in logs.items %}
+                <tr>
+                    <td>{{ log.store.store_name }}</td>
+                    <td>{{ log.employee.employee_name }}</td>
+                    <td>
+                        {% if log.check_in %}
+                        {{ log.check_in.strftime('%b %d, %Y %I:%M %p') }}
+                        {% else %}
+                        <span class="null-value">NULL</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if log.check_out %}
+                        {{ log.check_out.strftime('%b %d, %Y %I:%M %p') }}
+                        {% else %}
+                        <span class="null-value">NULL</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ log.total_hours if log.total_hours else "00:00" }} Hrs</td>
+                    <td>{{ log.notes }}</td>
+
+                    <td>
+                        <div class="actions">
+                            <button class="action-btn edit-btn">✏️</button>
+                            <button class="action-btn delete-btn">🗑️</button>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="pagination">
+            {% if logs.has_prev %}
+            <a href="{{ url_for('attendancelogs.attendance_logs', page=logs.prev_num, store_name=store_name, employee_name=employee_name, date=date) }}" class="page-btn">Previous</a>
+            {% else %}
+            <span class="page-btn disabled">Previous</span>
+            {% endif %}
+
+            <span class="page-info">Page {{ logs.page }} of {{ logs.pages }}</span>
+
+            {% if logs.has_next %}
+            <a href="{{ url_for('attendancelogs.attendance_logs', page=logs.next_num, store_name=store_name, employee_name=employee_name, date=date) }}" class="page-btn">Next</a>
+            {% else %}
+            <span class="page-btn disabled">Next</span>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock %}

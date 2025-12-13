@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>
+        {% block title %} Generate Employee ID {% endblock %}
+    </title>
+    {% block content %}
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/generte_id.css') }}">
+</head>
+<body>
+    <div class="card">
+        <h1>Generate Employee ID</h1>
+
+        <form action="/generate_id" method="POST">
+
+            <div class="form-row">
+                <div class="full">
+                    <label for="name">Name</label>
+                    <input id="name" name="name" type="text" placeholder="Full name" required>
+                </div>
+
+                <div>
+                    <label for="employee_id">Employee ID</label>
+                    <input id="employee_id" name="employee_ID" type="text" placeholder="EMP-ASIA01" required>
+                </div>
+
+                <div>
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" placeholder="Create a password" required>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button type="button" class="btn secondary" onclick="history.back()">Cancel</button>
+                <button type="submit" class="btn">Generate</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+{% endblock %}

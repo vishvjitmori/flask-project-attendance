@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %} Addstore {% endblock %}
+    </title>
+    {% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/addstore.css') }}">
+</head>
+
+<body>
+    <div class="modal-container">
+        <div class="modal-card">
+
+            <div class="modal-header">
+                <h2>Add New Store</h2>
+                <a href="{{ url_for('storelist.storelist')}}" class="close-btn">&times;</a>
+            </div>
+
+            <form action="/addstore" method="POST">
+
+                <!-- Store Details -->
+                <div class="form-section">
+                    <div class="row">
+                        <div class="form-group">
+                            <label>Store Name <span>*</span></label>
+                            <input type="text" name="store_name" placeholder="Enter store name">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email <span>*</span></label>
+                            <input type="email" name="email" placeholder="store@example.com">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Address -->
+                <h3 class="section-title">Address</h3>
+
+                <div class="form-section">
+                    <div class="row">
+                        <div class="form-group">
+                            <label>Address Name <span>*</span></label>
+                            <input type="text" name="address_name" placeholder="Enter store name">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Street Name <span>*</span></label>
+                            <input type="text" name="street_name" placeholder="store@example.com">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <label>Town <span>*</span></label>
+                            <input type="text" name="town" placeholder="Enter store name">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Locality Name <span>*</span></label>
+                            <input type="text" name="locality_name" placeholder="store@example.com">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <label>Post Code <span>*</span></label>
+                            <input type="text" name="post_code" placeholder="Enter store name">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Details -->
+                <h3 class="section-title">Contact Details</h3>
+
+                <div class="form-section">
+                    <div class="row">
+                        <div class="form-group">
+                            <label>Contact Number 1 <span>*</span></label>
+                            <input type="text" name="contact1" placeholder="+91 1234567890">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Contact Number 2 <span>*</span></label>
+                            <input type="text" name="contact2" placeholder="+91 1234567890">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="modal-footer">
+                    
+                    <a href="{{ url_for('storelist.storelist')}}" class="cancel-btn">Cancel</a>
+                    <button type="submit" class="submit-btn">Add Store</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
+{% endblock %}

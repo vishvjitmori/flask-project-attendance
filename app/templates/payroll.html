@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %} Payroll Lists {% endblock %}
+    </title>
+    {% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/payroll.css') }}">
+    
+</head>
+<body>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="{{ url_for('dashboard.dashboard') }}">Dashboard</a> / <span>Payroll</span>
+        </div>
+        
+        <div class="header">
+            <div>
+                <p class="eyebrow">Reports</p>
+                <h1>Payroll</h1>
+            </div>
+            <div class="header-actions">
+                <button class="btn ghost">Export</button>
+            </div>
+        </div>
+        
+        <form class="filters" id="payrollFilter" method="get" action="{{ url_for('payroll.payroll') }}">
+            <div class="input-wrapper">
+                <label>Store</label>
+                <input type="text" placeholder="Store Name" name="store_name" value="{{ store_name or '' }}">
+            </div>
+            <div class="input-wrapper">
+                <label>Employee</label>
+                <input type="text" placeholder="Employee Name" name="employee_name" value="{{ employee_name or '' }}">
+            </div>
+            <div class="input-wrapper date-input">
+                <label>Month</label>
+                <select name="month">
+                    {% for m in range(1,13) %}
+                    <option value="{{ m }}" {% if m == month %}selected{% endif %}>{{ m }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="input-wrapper date-input">
+                <label>Year</label>
+                <input type="number" name="year" value="{{ year }}">
+            </div>
+            <div class="filter-actions">
+                <button type="submit" class="btn primary">Apply</button>
+                {% if store_name or employee_name %}
+                <a class="btn ghost" href="{{ url_for('payroll.payroll') }}">Clear</a>
+                {% endif %}
+            </div>
+        </form>
+
+        <table class="payroll-table">
+            <thead>
+                <tr>
+                    <th>Store Name ⇅</th>
+                    <th>Employee Name ⇅</th>
+                    <th>From-Date ⇅</th>
+                    <th>To-Date</th>
+                    <th>Worked Hours ⇅</th>
+                    <th>Total Amount ⇅</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for row in rows.items %}
+                <tr>
+                    <td>{{ row.store_name }}</td>
+                    <td>{{ row.employee_name }}</td>
+                    <td>{{ row.from_date.strftime('%b %d, %Y') if row.from_date else '—' }}</td>
+                    <td>{{ row.to_date.strftime('%b %d, %Y') if row.to_date else '—' }}</td>
+                    <td>{{ (row.hours or 0) | round(2) }} Hrs</td>
+                    <td class="amount">—</td>
+                    <td>
+                        <div class="actions">
+                            <button class="action-btn view-btn" title="View">👁</button>
+                            <button class="action-btn edit-btn" title="Edit">✏️</button>
+                            <button class="action-btn delete-btn" title="Delete">🗑️</button>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="7" class="empty">No payroll data for this period.</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+        <div class="pagination">
+            {% if rows.has_prev %}
+            <a class="page-btn" href="{{ url_for('payroll.payroll', page=rows.prev_num, store_name=store_name, employee_name=employee_name, month=month, year=year) }}">Previous</a>
+            {% else %}
+            <span class="page-btn disabled">Previous</span>
+            {% endif %}
+
+            <span class="page-info">Page {{ rows.page }} of {{ rows.pages }}</span>
+
+            {% if rows.has_next %}
+            <a class="page-btn" href="{{ url_for('payroll.payroll', page=rows.next_num, store_name=store_name, employee_name=employee_name, month=month, year=year) }}">Next</a>
+            {% else %}
+            <span class="page-btn disabled">Next</span>
+            {% endif %}
+        </div>
+        <div class="summary-card">
+            <div>
+                <p class="label">Total Hours</p>
+                <p class="value">{{ total_hours }} hrs</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+{% endblock %}

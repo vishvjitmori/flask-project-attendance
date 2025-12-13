@@ -1,0 +1,98 @@
+:root {
+    --gap: 10px;
+    --accent: #0d5c89;
+}
+
+/* Body */
+body {
+    font-family: Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    background: #f4f7fb;
+    margin: 0;
+    padding: 2rem;
+}
+
+/* Card */
+.card {
+    width: 96.5%;
+    margin-top: 30px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.25rem;
+    box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+}
+
+/* Title */
+h1 {
+    font-size: 1.25rem;
+    margin: 0 0 0.75rem;
+}
+
+/* Form */
+form {
+    display: grid;
+    gap: var(--gap);
+}
+
+/* 2-Column layout */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap);
+}
+
+/* Full-width field */
+.full {
+    grid-column: 1 / -1;
+}
+
+/* Labels */
+label {
+    display: block;
+    font-size: 0.85rem;
+    color: #374151;
+    margin-bottom: 6px;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="password"] {
+    width: 96%;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #e6e9ee;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background: #fff;
+}
+
+/* Button actions */
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--gap);
+    margin-top: 0.5rem;
+}
+
+/* Buttons */
+.btn {
+    background: var(--accent);
+    color: #fff;
+    padding: 0.55rem 1rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+
+
+.btn.secondary {
+    background: #e6eef7;
+    color: #0b3a57;
+}
+
+/* Mobile Responsive */
+@media (max-width: 520px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
